@@ -127,10 +127,11 @@ export default function Landing() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Link to="/scenarios" className="vf-btn-primary group">
+            <Link to="/command-center" className="vf-btn-primary group">
               Open the demo
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
+            <Link to="/scenarios" className="vf-btn-secondary">Demo scenarios</Link>
             <Link to="/architecture" className="vf-btn-secondary">View Architecture</Link>
             <Link to="/database" className="vf-btn-secondary">Database catalog</Link>
           </div>
