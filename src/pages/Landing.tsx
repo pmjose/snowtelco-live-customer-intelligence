@@ -109,18 +109,18 @@ export default function Landing() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-5xl"
+          className="max-w-[1400px]"
         >
           <div className="flex items-center gap-2 mb-5 flex-wrap">
             <span className="vf-chip bg-vfRed-soft text-vfRed-dark font-bold tracking-wider uppercase">Executive briefing</span>
             <span className="vf-chip border border-ink/15 text-ink-muted">Snowflake AI Data Cloud</span>
             <span className="vf-chip border border-ink/15 text-ink-muted">UK · synthetic demo</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-ink leading-[1.04]">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.04]">
             Agentic AI across the entire telco stack —<br className="hidden md:inline" />
             <span className="text-vfRed">measured in seconds, hours and customer outcomes.</span>
           </h1>
-          <p className="mt-6 text-lg text-ink-muted max-w-3xl leading-relaxed">
+          <p className="mt-6 text-lg text-ink-muted max-w-5xl leading-relaxed">
             Five domains. One Snowflake-native data plane. Cortex Agents close the loop end-to-end —
             from detect → decide → act → verify — with consent, masking, RBAC and full audit baked in.
             Every number on this page is observable in the demo scenarios. £-value sizing is customer-specific.
