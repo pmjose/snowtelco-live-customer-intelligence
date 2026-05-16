@@ -1,0 +1,160 @@
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #f7f7f7;
+  color: #111111;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark-ops, html.dark-ops body {
+  background: #0b0f17;
+  color: #e5e7eb;
+}
+html.dark-ops .vf-card { background: #131a26; border-color: #1f2937; }
+html.dark-ops .vf-section-title { color: #e5e7eb; }
+html.dark-ops .vf-kpi-value { color: #fff; }
+html.dark-ops .vf-kpi-label { color: #9ca3af; }
+html.dark-ops .text-ink { color: #e5e7eb; }
+html.dark-ops .text-ink-muted { color: #9ca3af; }
+html.dark-ops .bg-mist { background: #0f1622; }
+html.dark-ops .bg-mist-dark, html.dark-ops .border-mist-dark { background-color: #1f2937; border-color: #1f2937; }
+html.dark-ops .vf-btn-secondary { background: #131a26; color: #e5e7eb; border-color: #1f2937; }
+html.dark-ops .bg-white { background-color: #131a26; }
+html.dark-ops .border-mist-dark\/60 { border-color: #1f2937; }
+
+* { box-sizing: border-box; }
+
+@layer components {
+  .vf-card {
+    @apply bg-white rounded-2xl shadow-card border border-mist-dark/60;
+  }
+  .vf-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full text-xs font-semibold px-2.5 py-1;
+  }
+  .vf-kpi-value {
+    @apply text-3xl font-extrabold tracking-tight text-ink;
+  }
+  .vf-kpi-label {
+    @apply text-xs font-medium uppercase tracking-wider text-ink-muted;
+  }
+  .vf-section-title {
+    @apply text-lg font-bold text-ink;
+  }
+  .vf-divider {
+    @apply h-px w-full bg-mist-dark/70;
+  }
+  .vf-btn-primary {
+    @apply inline-flex items-center gap-2 rounded-xl bg-vfRed text-white font-semibold px-5 py-3 hover:bg-vfRed-dark transition shadow-card;
+  }
+  .vf-btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-xl bg-white border border-mist-dark text-ink font-semibold px-5 py-3 hover:bg-mist transition;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 0px, #fafafa 200px, #f0f0f0 400px);
+  background-size: 800px 100%;
+  animation: shimmer 2s linear infinite;
+}
+html.dark-ops .shimmer {
+  background: linear-gradient(90deg, #131a26 0px, #1f2937 200px, #131a26 400px);
+  background-size: 800px 100%;
+}
+
+.maplibregl-ctrl-attrib { font-size: 10px; opacity: 0.6; }
+.maplibregl-canvas { outline: none; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+html.dark-ops ::-webkit-scrollbar-thumb { background: #1f2937; }
+
+/* Print styles for /briefing */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; }
+  .vf-card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  .print-page { page-break-after: always; }
+}
+
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.pulse-ring {
+  animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  transform-origin: center;
+}
+
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 0 rgba(41,181,232,0)); }
+  50% { filter: drop-shadow(0 0 8px rgba(41,181,232,0.85)); }
+}
+.glow { animation: glow 1.6s ease-in-out infinite; }
+
+@keyframes focusPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(225, 29, 72, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+.focus-pulse {
+  animation: focusPulse 1.6s ease-out 1;
+  outline: 2px solid #E11D48;
+  outline-offset: 4px;
+  border-radius: 12px;
+  scroll-margin-top: 96px;
+  scroll-margin-bottom: 24px;
+}
+
+/* ── Spotlight overlay: dim the rest of the screen, raise the focus target. ── */
+.focus-spotlight-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.42);
+  pointer-events: none;
+  z-index: 39;
+  animation: spotlightFade 1.4s ease-out 1;
+}
+@keyframes spotlightFade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.focus-spotlight-target {
+  position: relative;
+  z-index: 41;
+  outline: 2px solid #E11D48;
+  outline-offset: 6px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.18), 0 24px 48px -12px rgba(15, 23, 42, 0.45);
+  background: white;
+  animation: spotlightGlow 1.4s ease-out 1;
+}
+@keyframes spotlightGlow {
+  0%   { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.0), 0 24px 48px -12px rgba(15, 23, 42, 0.0); }
+  20%  { box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.30), 0 24px 48px -12px rgba(15, 23, 42, 0.55); }
+  80%  { box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.18), 0 24px 48px -12px rgba(15, 23, 42, 0.45); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.0), 0 24px 48px -12px rgba(15, 23, 42, 0.0); }
+}
