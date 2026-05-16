@@ -1341,7 +1341,7 @@ const bssConsumerDuty: SectionScenario = {
   subtitle: 'FCA Consumer Duty (Jul 2023): proactive foreseeable-harm assessment across vulnerable + financially-stressed cohorts · auto-remediation + board-level evidence pack.',
   durationSec: 22,
   events: [
-    { ...e(0, 'detect', 'Consumer Duty Q-end review · 4,820 customers flagged for foreseeable-harm assessment (price · service · vulnerability)', 'Decisioning', 'warn'), focus: { route: '/bss/disputes', target: 'page' } },
+    { ...e(0, 'detect', 'Consumer Duty Q-end review · 4,820 customers flagged for foreseeable-harm assessment (price · service · vulnerability)', 'Decisioning', 'warn'), focus: { route: '/bss/disputes', target: 'dispute-queue' } },
     e(2, 'observe', 'Cortex AI_AGG over 30d: bill-size jumps × payment-failures × case-volume × vulnerable-register', 'Decisioning'),
     e(4, 'log', 'Cohorts: 1,820 price-shock · 1,420 service-shock · 1,180 vulnerable-without-bill-pause · 400 mixed', 'Decisioning'),
     { ...e(6, 'hypothesize', 'Per-cohort harm assessment + remedy mapping · pre-approved Consumer Duty playbook PB-CD-014', 'Decisioning'), focus: { route: '/bss/cases', target: 'page' } },
@@ -1673,14 +1673,14 @@ const ossSliceActivation: SectionScenario = {
   subtitle: 'TMF 641 + 3GPP TS 28.531 slice instantiation · Barclays trading-floor URLLC slice (< 5ms latency, 99.999% SLA) · auto-provision via NSSF + reserve resources across 14 cells.',
   durationSec: 24,
   events: [
-    { ...e(0, 'detect', 'B2B order: Barclays trading floor · URLLC slice · 99.999% SLA · < 5ms latency · 12-month commit £4.2M ARR', 'Network'), focus: { route: '/oss/slicing', target: 'page' } },
+    { ...e(0, 'detect', 'B2B order: Barclays trading floor · URLLC slice · 99.999% SLA · < 5ms latency · 12-month commit £4.2M ARR', 'Network'), focus: { route: '/oss/slicing', target: 'slice-ladder' } },
     e(2, 'observe', 'GSMA NG.116 GST template SLC-URLLC-002 selected · tenant policy + isolation level + KPI floor verified', 'Decisioning'),
     e(4, 'log', 'Footprint: 14 cells in EC2 · 2 gNBs · 1 UPF instance reserved · NSSF policy file generated · MEC node placement at LDN-MEC-01', 'Decisioning'),
     { ...e(6, 'hypothesize', 'Pre-flight via digital twin: simulated 14 cells under URLLC reservation · existing eMBB customers SLA-impact 0.1pp (within tolerance)', 'Decisioning'), focus: { route: '/oss/digital-twin', target: 'page' } },
     e(8, 'plan', 'Plan: NSSF instantiate slice · UPF + SMF + MEC binding · Snowflake-side audit log · acceptance test plan run', 'Decisioning'),
-    { ...e(11, 'act-snow', 'TMF 641 + ETSI NFV-MANO: slice SLC-URLLC-BARCLAYS-01 instantiated · all 14 cells reserved · MEC placement confirmed', 'Activation', 'success'), focus: { route: '/oss/slicing', target: 'page' } },
+    { ...e(11, 'act-snow', 'TMF 641 + ETSI NFV-MANO: slice SLC-URLLC-BARCLAYS-01 instantiated · all 14 cells reserved · MEC placement confirmed', 'Activation', 'success'), focus: { route: '/oss/slicing', target: 'slice-ladder' } },
     { ...e(15, 'log', 'Acceptance test: voice-test from trading floor · P95 latency 3.4ms · 1k sustained sessions OK · SLA gate passed', 'Network', 'success'), focus: { route: '/oss/mec', target: 'page' } },
-    { ...e(19, 'verify', 'Slice live · slice_sla_predict_v2 monitoring · slice_health monitor active · BSS billing handshake OK', 'Decisioning', 'success'), focus: { route: '/oss/slicing', target: 'page' } },
+    { ...e(19, 'verify', 'Slice live · slice_sla_predict_v2 monitoring · slice_health monitor active · BSS billing handshake OK', 'Decisioning', 'success'), focus: { route: '/oss/slicing', target: 'slice-ladder' } },
     { ...e(22, 'resolve', 'Barclays URLLC slice live · £4.2M ARR booked · gold.slice_inventory + platinum.slice_health updated', 'Network', 'success'), focus: { route: '/oss', target: 'page' } },
   ],
 };

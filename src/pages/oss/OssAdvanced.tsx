@@ -76,7 +76,7 @@ export function OssSlicing() {
         <Kpi label="Slice-as-a-Service (B2B)" value="14" delta="enterprise customers" />
       </div>
 
-      <div className="vf-card p-3 overflow-x-auto">
+      <div className="vf-card p-3 overflow-x-auto" data-focus="slice-ladder">
         <table className="w-full text-[12px]">
           <thead className="text-[10px] uppercase tracking-wider text-ink-muted font-bold border-b border-mist-dark">
             <tr className="text-left"><th className="py-1.5 px-2">Slice</th><th className="py-1.5 px-2">Type</th><th className="py-1.5 px-2">Tenant</th><th className="py-1.5 px-2">SLA</th><th className="py-1.5 px-2">Latency target</th><th className="py-1.5 px-2">State</th></tr>
