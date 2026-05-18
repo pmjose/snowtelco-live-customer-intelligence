@@ -11,7 +11,17 @@ import { useDemoState } from '@/state/DemoStateProvider';
 // of the page and raises the target with a glow. Skipped for "page" so that
 // overview moments don't go dark.
 function applySpotlight(target: string) {
-  if (target === 'page') return;
+  if (target === 'page') {
+    // Soft page-level cue: top edge sweeps a thin red shimmer (no dim)
+    const existing = document.getElementById('focus-page-sweep');
+    if (existing) existing.remove();
+    const sweep = document.createElement('div');
+    sweep.id = 'focus-page-sweep';
+    sweep.className = 'focus-page-sweep';
+    document.body.appendChild(sweep);
+    window.setTimeout(() => sweep.remove(), 1600);
+    return;
+  }
   // Add backdrop element to DOM
   const existing = document.getElementById('focus-spotlight-backdrop');
   if (existing) existing.remove();

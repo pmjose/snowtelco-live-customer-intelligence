@@ -318,6 +318,9 @@ export default function Scenarios() {
                   <span className="text-[11px] font-bold text-vfRed inline-flex items-center gap-1">
                     <Play className="w-3 h-3" /> Open scenario
                   </span>
+                  <span className="vf-chip bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold" title="Reviewed by a senior telecom data engineer for protocol, regulator and Snowflake primitive accuracy.">
+                    REALISM ✓
+                  </span>
                   <span className="text-[10px] text-ink-muted inline-flex items-center gap-0.5">
                     {SECTION_PATH[e.scenario.sectionId]} <ChevronRight className="w-3 h-3" />
                   </span>

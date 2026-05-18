@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppShell } from '@/components/app/AppShell';
 import Landing from '@/pages/Landing';
 import CommandCenter from '@/pages/CommandCenter';
@@ -53,6 +53,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/" element={<Landing />} />
           {/* CIC */}
           <Route path="/command-center" element={<CommandCenter />} />
+          <Route path="/cic" element={<Navigate to="/command-center" replace />} />
+          <Route path="/cic/*" element={<Navigate to="/command-center" replace />} />
           <Route path="/customer/:id" element={<Customer360Page />} />
           <Route path="/customers" element={<CustomersList />} />
           <Route path="/compare" element={<CompareCustomers />} />

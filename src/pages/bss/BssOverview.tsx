@@ -45,7 +45,7 @@ function ExecutiveOverviewPanels() {
   return (
     <div className="max-w-[1600px] mx-auto px-4 lg:px-6 pb-4 space-y-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="vf-card p-4">
+        <div className="vf-card p-4" data-focus="bss-revenue-waterfall">
           <div className="flex items-center justify-between mb-2">
             <div>
               <div className="text-[10px] uppercase tracking-wider text-vfRed font-bold">Group · MTD</div>
@@ -71,7 +71,7 @@ function ExecutiveOverviewPanels() {
           <div className="text-[10px] text-ink-muted mt-2">Source <code className="font-mono">gold.revenue_movements</code> · refreshed every 15 min via Snowpipe.</div>
         </div>
 
-        <div className="vf-card p-4">
+        <div className="vf-card p-4" data-focus="bss-revenue-heatmap">
           <div className="flex items-center justify-between mb-2">
             <div>
               <div className="text-[10px] uppercase tracking-wider text-vfRed font-bold">UK · ARPU density</div>
@@ -87,7 +87,7 @@ function ExecutiveOverviewPanels() {
         </div>
       </div>
 
-      <div className="vf-card p-4">
+      <div className="vf-card p-4" data-focus="bss-product-mix">
         <div className="flex items-center justify-between mb-2">
           <div>
             <div className="text-[10px] uppercase tracking-wider text-vfRed font-bold">Product portfolio · QoQ</div>
