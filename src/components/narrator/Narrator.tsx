@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Mic, X, ChevronLeft, ChevronRight, Pause, Play, Wrench } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -29,6 +30,14 @@ export function Narrator() {
   const [collapsed, setCollapsed] = useState(false);
   const [manualStageIdx, setManualStageIdx] = useState<number | null>(null);
   const [engineerMode, setEngineerMode] = useState(false);
+  const [slotEl, setSlotEl] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const find = () => setSlotEl(document.getElementById('sidebar-presenter-slot'));
+    find();
+    const t = window.setInterval(find, 500);
+    return () => window.clearInterval(t);
+  }, []);
 
   const presenter = presenterFor(selectedIncidentId);
   const incident = incidentById(selectedIncidentId);
@@ -95,28 +104,36 @@ export function Narrator() {
   const latestEvent = firedEvents[0];
 
   if (!narratorOn) {
-    return (
+    const btn = (
       <button
         onClick={() => setNarratorOn(true)}
-        className="fixed bottom-4 left-4 z-40 w-9 h-9 rounded-full bg-ink text-white flex items-center justify-center shadow-md hover:shadow-lg no-print"
+        className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm font-semibold transition bg-ink text-white hover:bg-ink/90 no-print"
         title="Show presenter narrator"
         aria-label="Show presenter narrator"
       >
         <Mic className="w-4 h-4" />
+        Presenter
+        <span className="ml-auto text-[10px] opacity-80">off</span>
       </button>
+    );
+    return slotEl ? createPortal(btn, slotEl) : (
+      <div className="fixed bottom-4 left-4 z-40 no-print">{btn}</div>
     );
   }
 
   if (collapsed) {
-    return (
+    const pill = (
       <button
         onClick={() => setCollapsed(false)}
-        className="fixed bottom-4 left-4 z-40 vf-card px-3 py-2 flex items-center gap-2 no-print hover:shadow-lg"
+        className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-sm font-semibold bg-white border border-mist-dark text-ink hover:bg-mist no-print"
       >
-        <Mic className="w-3.5 h-3.5 text-vfRed" />
-        <span className="text-[11px] font-bold text-ink">Presenter</span>
-        <span className="vf-chip bg-mist text-ink-muted text-[9.5px] font-mono">{useCic ? stage : stageKey}</span>
+        <Mic className="w-4 h-4 text-vfRed" />
+        <span>Presenter</span>
+        <span className="ml-auto vf-chip bg-mist text-ink-muted text-[9.5px] font-mono">{useCic ? stage : stageKey}</span>
       </button>
+    );
+    return slotEl ? createPortal(pill, slotEl) : (
+      <div className="fixed bottom-4 left-4 z-40 no-print">{pill}</div>
     );
   }
 
@@ -126,7 +143,7 @@ export function Narrator() {
   const showStageBar = !useCic && !useSectionScenario;
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 max-w-md w-[420px] no-print">
+    <div className="fixed bottom-4 left-4 lg:left-[272px] z-40 max-w-md w-[420px] no-print">
       <AnimatePresence mode="wait">
         <motion.div
           key={`${useCic ? scenario?.id : selectedIncidentId}-${useCic ? stage : stageKey}-${domain}`}

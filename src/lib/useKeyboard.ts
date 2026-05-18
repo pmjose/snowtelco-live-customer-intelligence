@@ -31,7 +31,7 @@ export const SHORTCUT_LIST: { keys: string; action: string }[] = [
   { keys: '→', action: 'Advance one stage' },
   { keys: 'R', action: 'Restart demo' },
   { keys: '1-6', action: 'Select customer' },
-  { keys: '?', action: 'Open Ask CIC chat' },
+  { keys: '?', action: 'Open Ask Cortex AI chat' },
   { keys: 'N', action: 'Toggle narrator overlay' },
   { keys: 'T', action: 'Toggle dark Network-Ops mode' },
   { keys: 'M', action: 'Toggle sounds' },

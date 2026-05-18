@@ -38,7 +38,7 @@ export function AskCIC() {
   // has context.
   const greet = useMemo<Message>(() => ({
     role: 'assistant',
-    text: `Hi — I'm CIC, your Customer Intelligence assistant. I'm grounded on the active scenario: ${activeLabel}. Ask me about the cohort, drivers, NBAs, or projected outcomes.`,
+    text: `Hi — I'm Cortex AI, your Customer Intelligence assistant. I'm grounded on the active scenario: ${activeLabel}. Ask me about the cohort, drivers, NBAs, or projected outcomes.`,
     citations: [],
   }), [activeId, activeLabel]);
 
@@ -144,7 +144,7 @@ export function AskCIC() {
           <div className="px-4 py-3 border-b border-mist-dark flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-vfRed text-white grid place-items-center"><MessageSquare className="w-4 h-4" /></div>
             <div className="flex-1">
-              <div className="font-bold text-ink">Ask CIC</div>
+              <div className="font-bold text-ink">Ask Cortex AI</div>
               <div className="text-[11px] text-ink-muted truncate">Powered by Snowflake Cortex AI · grounded on <span className="font-semibold text-ink">{activeShort}</span></div>
             </div>
             <button onClick={resetChat} title="Reset conversation" className="text-ink-muted hover:text-vfRed p-1.5 rounded hover:bg-mist transition"><RotateCcw className="w-4 h-4" /></button>

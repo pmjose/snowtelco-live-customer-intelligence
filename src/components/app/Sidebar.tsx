@@ -310,9 +310,10 @@ export function Sidebar() {
             chatOpen ? 'bg-ink text-white' : 'bg-vfRed text-white hover:bg-vfRed-dark')}
         >
           <MessageSquare className="w-4 h-4" />
-          Ask agent
+          Ask Cortex AI
           <span className="ml-auto text-[10px] opacity-80">?</span>
         </button>
+        <div id="sidebar-presenter-slot" />
       </div>
     </aside>
   );
