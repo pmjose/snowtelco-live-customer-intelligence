@@ -86,7 +86,38 @@ html.dark-ops ::-webkit-scrollbar-thumb { background: #1f2937; }
   body { background: white !important; }
   .vf-card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
   .print-page { page-break-after: always; }
+  /* Scenario-script page in print mode: hide chrome, single column, A4 friendly */
+  .scenario-script-print header,
+  .scenario-script-print .vf-card,
+  .scenario-script-print section { break-inside: avoid; }
+  .scenario-script-print details > summary::after { content: ''; }
+  .scenario-script-print details { open: true; }
 }
+/* Force-show all <details> on the print-mode script page even before printing */
+.scenario-script-print details { }
+.scenario-script-print details > summary { list-style: none; }
+.scenario-script-print details[open] > * { display: block; }
+
+/* Capture mode: triggered by ?clean=1 in the URL via ScenarioAutoRunner.
+   Hides sidebar/narrator/transport but keeps the main stage content visible. */
+body.capture-mode aside,
+body.capture-mode .no-print,
+body.capture-mode [class*="Narrator"],
+body.capture-mode [class*="ScenarioTransport"] {
+  display: none !important;
+}
+body.capture-mode main { padding-bottom: 0 !important; }
+
+/* ── Capture mode: triggered by ?clean=1 in the URL via ScenarioAutoRunner. ──
+   Hides app chrome so screenshots show only the stage. */
+body.capture-mode header,
+body.capture-mode aside,
+body.capture-mode .no-print,
+body.capture-mode [data-focus="page"] > nav,
+body.capture-mode [class*="ScenarioTransport"],
+body.capture-mode [class*="Narrator"] { display: none !important; }
+body.capture-mode main { padding-bottom: 0 !important; }
+body.capture-mode { background: #FFFFFF !important; }
 
 
 @keyframes marquee {

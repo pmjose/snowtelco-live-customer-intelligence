@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Mic, X, ChevronLeft, ChevronRight, Pause, Play, Wrench } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { Mic, X, ChevronLeft, ChevronRight, Pause, Play, Wrench, FileText } from 'lucide-react';
+import { useLocation, Link } from 'react-router-dom';
 import { useDemoState } from '@/state/DemoStateProvider';
 import { presenterFor, derivePresenterFor, type DomainKey, type NocStageKey } from '@/data/presenterScripts';
 import { incidentById } from '@/data/nocIncidents';
@@ -162,6 +162,17 @@ export function Narrator() {
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-[10px] uppercase tracking-wider font-bold text-ink-muted truncate">{kicker}</div>
                   <div className="flex items-center gap-1 shrink-0">
+                    {selectedIncidentId && (
+                      <Link
+                        to={`/scenarios/${selectedIncidentId}`}
+                        target="_blank"
+                        rel="noopener"
+                        className="text-[9.5px] font-bold uppercase px-1.5 py-1 rounded-md inline-flex items-center gap-0.5 bg-mist text-ink-muted hover:text-vfRed hover:bg-white"
+                        title="Open the full presenter script in a new tab"
+                      >
+                        <FileText className="w-3 h-3" /> Script
+                      </Link>
+                    )}
                     <button
                       onClick={() => setEngineerMode((v) => !v)}
                       className={cn('text-[9.5px] font-bold uppercase px-1.5 py-1 rounded-md inline-flex items-center gap-0.5',

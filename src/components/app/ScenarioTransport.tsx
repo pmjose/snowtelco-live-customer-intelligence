@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Play, Pause, RotateCcw, Radio, ChevronDown, ChevronUp, Crosshair, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, RotateCcw, Radio, ChevronDown, ChevronUp, Crosshair, SkipBack, SkipForward, Volume2 } from 'lucide-react';
 import { useDemoState, type PlaySpeed } from '@/state/DemoStateProvider';
 import { scenarioById, scriptForScenario, sectionFromPath, SECTION_LABEL, SECTION_PATH } from '@/data/sectionScenarios';
 import { cn } from '@/lib/utils';
@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 const SPEEDS: PlaySpeed[] = [0.25, 0.5, 1, 2, 4];
 
 export function ScenarioTransport() {
-  const { nocPlaying, toggleNocPlay, resetNoc, stepBeat, playSpeed, setPlaySpeed, tElapsedMs, selectedIncidentId, currentStage, firedEvents, focusEnabled, setFocusEnabled } = useDemoState();
+  const { nocPlaying, toggleNocPlay, resetNoc, stepBeat, playSpeed, setPlaySpeed, tElapsedMs, selectedIncidentId, currentStage, firedEvents, focusEnabled, setFocusEnabled, narratedMode, setNarratedMode } = useDemoState();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -149,6 +149,17 @@ export function ScenarioTransport() {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="px-3 pb-2.5 border-t border-mist-dark/60 pt-2 flex items-center gap-2">
+          <button
+            onClick={() => setNarratedMode(!narratedMode)}
+            className={cn('inline-flex items-center gap-1 h-8 px-2.5 rounded-lg text-[11px] font-bold transition',
+              narratedMode ? 'bg-purple-100 text-purple-700 border border-purple-300' : 'border border-mist-dark text-ink-muted hover:text-ink hover:bg-mist')}
+            title={narratedMode ? 'Voice narration ON — will speak as stages advance' : 'Enable voice narration'}
+          >
+            <Volume2 className="w-3.5 h-3.5" /> Voice {narratedMode ? 'ON' : 'OFF'}
+          </button>
         </div>
       </div>
     </div>

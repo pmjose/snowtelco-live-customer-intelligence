@@ -327,14 +327,17 @@ export default function Landing() {
 }
 
 function LiveSavingsTicker() {
-  // Agentic activity demo — counters observable in the scenarios. No £ claims.
-  // Rates calibrated to be presenter-credible at UK-scale and visibly tick:
-  //   signals (mediation events) ≈ 28.4k/s
-  //   agent decisions (Cortex Agents over customer + network events) ≈ 84/s (~7.3M/day)
-  //   closed-loop actions (auto-applied remediations) ≈ 12/s (~1M/day)
-  const SIGNALS_PER_SEC   = 28_400;
-  const DECISIONS_PER_SEC = 84;
-  const ACTIONS_PER_SEC   = 12;
+  // Agentic activity demo — counters calibrated to a UK Tier-2 MNO (~14M subs).
+  //   signals (telemetry firehose: CDR + Diameter + RAN PM + app/web + OSS PM/FM)
+  //     ≈ 12.5k/s  → ~1.08B/day  (realistic raw event volume for a Tier-2 estate)
+  //   agent decisions (NBA + care routing + eligibility/suppression + ops triage)
+  //     ≈ 6/s      → ~520k/day   (NBA ~300k/d + ops triage ~50k/d + routing ~150k/d + privacy ~20k/d)
+  //   closed-loop actions (auto-applied remediations: bill-shock push, KB publish,
+  //     dunning empathy-tone send, SLA pre-emptive treatment, suppression apply)
+  //     ≈ 1.4/s    → ~120k/day   (high end of credible auto-action rate for 14M subs)
+  const SIGNALS_PER_SEC   = 12_500;
+  const DECISIONS_PER_SEC = 6;
+  const ACTIONS_PER_SEC   = 1.4;
   const [elapsedMs, setElapsedMs] = useState(0);
   useEffect(() => {
     const start = performance.now();

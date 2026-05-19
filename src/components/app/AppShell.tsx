@@ -6,8 +6,10 @@ import { PageBreadcrumb } from './PageBreadcrumb';
 import { ScenarioTransport } from './ScenarioTransport';
 import { SectionAutoReset } from './SectionAutoReset';
 import { FocusRuntime } from './FocusRuntime';
+import { ScenarioAutoRunner } from './ScenarioAutoRunner';
 import { DemoStateProvider } from '@/state/DemoStateProvider';
 import { Narrator } from '@/components/narrator/Narrator';
+import { NarrationRunner } from '@/components/narrator/NarrationRunner';
 import { AskCIC } from '@/components/chat/AskCIC';
 import { KeyboardBridge } from './KeyboardBridge';
 
@@ -20,6 +22,7 @@ export function AppShell() {
       <KeyboardBridge />
       <SectionAutoReset />
       <FocusRuntime />
+      <ScenarioAutoRunner />
       <div className="min-h-screen flex flex-col">
         <AppHeader />
         <div className="flex flex-1 min-h-0">
@@ -30,6 +33,7 @@ export function AppShell() {
           </main>
         </div>
         <Narrator />
+        <NarrationRunner />
         <ScenarioTransport />
         <AskCIC />
         <Toaster richColors position="top-right" closeButton expand toastOptions={{ className: 'no-print' }} />

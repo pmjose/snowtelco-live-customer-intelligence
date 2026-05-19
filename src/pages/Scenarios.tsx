@@ -318,6 +318,16 @@ export default function Scenarios() {
                   <span className="text-[11px] font-bold text-vfRed inline-flex items-center gap-1">
                     <Play className="w-3 h-3" /> Open scenario
                   </span>
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(ev) => { ev.stopPropagation(); navigate(`/scenarios/${e.scenario.id}`); }}
+                    onKeyDown={(ev) => { if (ev.key === 'Enter') { ev.stopPropagation(); navigate(`/scenarios/${e.scenario.id}`); } }}
+                    className="vf-chip bg-mist text-ink border border-mist-dark text-[10px] font-bold inline-flex items-center gap-1 hover:bg-white hover:border-vfRed hover:text-vfRed transition cursor-pointer"
+                    title="Open the full presenter script"
+                  >
+                    📄 Script
+                  </span>
                   <span className="vf-chip bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold" title="Reviewed by a senior telecom data engineer for protocol, regulator and Snowflake primitive accuracy.">
                     REALISM ✓
                   </span>

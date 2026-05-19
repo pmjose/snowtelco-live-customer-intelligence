@@ -51,6 +51,7 @@ interface DemoCtx {
   // NOC sequencer
   nocPlaying: boolean;
   toggleNocPlay: () => void;
+  startNocPlay: () => void;
   resetNoc: () => void;
   stepBeat: (direction: 'forward' | 'back') => void;
   tElapsedMs: number;
@@ -78,6 +79,9 @@ interface DemoCtx {
   // scenario-driven focus
   focusEnabled: boolean;
   setFocusEnabled: (b: boolean) => void;
+  // narrated demo mode
+  narratedMode: boolean;
+  setNarratedMode: (b: boolean) => void;
 }
 
 const DemoStateContext = createContext<DemoCtx | null>(null);
@@ -133,6 +137,7 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [chatOpen, setChatOpen] = useState(false);
   const [resolutionProgress, setResolutionProgress] = useState(0);
+  const [narratedMode, setNarratedModeRaw] = useState<boolean>(() => load('snowtelco.narratedMode', false));
   const lastToastedStage = useRef<Stage | null>(null);
   const healingRaf = useRef<number>(0);
   const healingStart = useRef<number>(0);
@@ -151,6 +156,7 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
   const setMode = useCallback((m: Mode) => { setModeRaw(m); save('snowtelco.mode', m); }, []);
   const setAutoApprove = useCallback((b: boolean) => { setAutoApproveRaw(b); save('snowtelco.autoApprove', b); }, []);
   const setPlaySpeed = useCallback((s: PlaySpeed) => { setPlaySpeedRaw(s); save('snowtelco.speed', s); }, []);
+  const setNarratedMode = useCallback((b: boolean) => { setNarratedModeRaw(b); save('snowtelco.narratedMode', b); }, []);
   const selectIncident = useCallback((id: string) => {
     setSelectedIncidentId(id);
     save('snowtelco.incident', id);
@@ -195,6 +201,15 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
         playStart.current = performance.now() - tElapsedMs / (playSpeed * BASE_PACE);
       }
       return !p;
+    });
+  }, [tElapsedMs, playSpeed]);
+
+  const startNocPlay = useCallback(() => {
+    setNocPlaying((p) => {
+      if (!p) {
+        playStart.current = performance.now() - tElapsedMs / (playSpeed * BASE_PACE);
+      }
+      return true;
     });
   }, [tElapsedMs, playSpeed]);
 
@@ -252,7 +267,10 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
   }, [nocPlaying, selectedIncidentId, tElapsedMs]);
 
   // Reset fired events when incident changes
+  const prevIncidentRef = useRef(selectedIncidentId);
   useEffect(() => {
+    if (prevIncidentRef.current === selectedIncidentId) return;
+    prevIncidentRef.current = selectedIncidentId;
     setFiredEvents([]);
     firedIdx.current = 0;
     setTElapsedMs(0);
@@ -460,7 +478,7 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
       theme, setTheme, soundOn, setSoundOn, narratorOn, setNarratorOn,
       mode, setMode, autoApprove, setAutoApprove,
       selectedIncidentId, selectIncident, ranActionIds, runAction, resetActions,
-      nocPlaying, toggleNocPlay, resetNoc, stepBeat,
+      nocPlaying, toggleNocPlay, startNocPlay, resetNoc, stepBeat,
       tElapsedMs, playSpeed, setPlaySpeed, firedEvents, currentStage,
       bigScreen, toggleBigScreen,
       scenarioId, setScenarioId, scenario,
@@ -468,13 +486,14 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
       chatOpen, setChatOpen, toggleChat,
       resolutionProgress, startSelfHealing,
       focusEnabled, setFocusEnabled,
+      narratedMode, setNarratedMode,
     }),
     [stage, isPlaying, selectedCustomerId, setStage, advance, reset, togglePlay, selectCustomer,
       effectiveChurn, isIncidentActive, isResolved,
       theme, setTheme, soundOn, setSoundOn, narratorOn, setNarratorOn,
       mode, setMode, autoApprove, setAutoApprove,
       selectedIncidentId, selectIncident, ranActionIds, runAction, resetActions,
-      nocPlaying, toggleNocPlay, resetNoc, stepBeat,
+      nocPlaying, toggleNocPlay, startNocPlay, resetNoc, stepBeat,
       tElapsedMs, playSpeed, setPlaySpeed, firedEvents, currentStage,
       bigScreen, toggleBigScreen,
       scenarioId, setScenarioId, scenario,
@@ -482,6 +501,7 @@ export function DemoStateProvider({ children }: { children: ReactNode }) {
       chatOpen, toggleChat,
       resolutionProgress, startSelfHealing,
       focusEnabled, setFocusEnabled,
+      narratedMode, setNarratedMode,
     ]
   );
 

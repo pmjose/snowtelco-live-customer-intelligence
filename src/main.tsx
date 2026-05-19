@@ -7,6 +7,7 @@ import CommandCenter from '@/pages/CommandCenter';
 import Customer360Page from '@/pages/Customer360Page';
 import Architecture from '@/pages/Architecture';
 import Scenarios from '@/pages/Scenarios';
+import ScenarioScript from '@/pages/ScenarioScript';
 import DatabasePage from '@/pages/Database';
 import CustomersList from '@/pages/CustomersList';
 import CompareCustomers from '@/pages/CompareCustomers';
@@ -63,6 +64,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/uplift" element={<Uplift />} />
           <Route path="/architecture" element={<Architecture />} />
           <Route path="/scenarios" element={<Scenarios />} />
+          <Route path="/scenarios/:id" element={<ScenarioScript />} />
           <Route path="/database" element={<DatabasePage />} />
           <Route path="/lineage" element={<Lineage />} />
           <Route path="/briefing" element={<Briefing />} />
